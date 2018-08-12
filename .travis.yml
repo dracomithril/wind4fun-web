@@ -18,7 +18,8 @@ jobs:
   include:
   - stage: test
     script: yarn run lint
-  - script: yarn test
+  -
+    script: yarn test
   - if: tag IS present
     stage: deploy to production
     script: yarn build
