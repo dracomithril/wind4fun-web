@@ -1,27 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Provider } from 'react-redux';
+import createStore from './redux/store';
 import './App.css';
+import UserInfo from './components/UserInfo';
+import MenuBar from './components/MenuBar';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">
-          Welcome to React
-        </h1>
-      </header>
-      <p className="App-intro">
-        To get started, edit
-        {' '}
-        <code>
-          src/App.js
-        </code>
-        {' '}
-        and save to reload.
-      </p>
+const App = () => (
+  <Provider store={createStore()}>
+    <div>
+      <MenuBar />
+      <UserInfo />
     </div>
-  );
-}
+  </Provider>
+);
 
 export default App;

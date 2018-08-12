@@ -1,18 +1,33 @@
 language: node_js
+
 node_js:
-- "8.11.3"
+- 8.11.3
+
 before_install:
 - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.9.2
 - export PATH="$HOME/.yarn/bin:$PATH"
+
 cache:
   yarn: true
 
 stages:
   - test
+  - name: deploy
 
 jobs:
   include:
-    - stage: test
-      script: yarn run lint
-    -
-      script: yarn test
+  - stage: test
+    script: yarn run lint
+  - script: yarn test
+  - if: tag IS present
+    stage: deploy to production
+    script: yarn build
+    deploy:
+      provider: heroku
+      skip_cleanup: true
+      api_key:
+        secure: gZOaT0NjtUDRMMWhKcLI7AD9d8kMHJG6v8a6akkrbZwIxOB+fjO2H6l7Re2RBz+kBqPRlWxHRMWebgWAZAthoxwO3pxSFs0fbwgBrS0IHBX0QompfviTt5nZmaSkQNFKfApGE5ZDPVazhlO3/RP8ZNS96cKv6WEzKzVz1hjYkKYqQScpBNhAo4NSsxVBuOZ0MSIedCEa99kU6ao8faCbDpS4tycF0mPMT3RE5ohCH15TpLmfQoXvXwuLUamViLAs4pDN0Alse0Rkt3m4Sx4ByjLjvEXodqxq9UMM7id91JnNNCy7+GFXmPCYCr5QeindHy8Qd2noEqyQOulN5f7R5ax7jonq6TbSUb77yCWQa9oSXKKU+jVLR1JfZ7askcYTX25VHdgL7g9ZxHcectFAxN71sCpQ/FyM2kKBoQsCR4jPk9OPyklEU88D1QdiL88H8hSZBMtYoD3OVrE+VHbzfGxYo2dBRtMyGSsEwTQpAC0iH58X5MK8w2WF1quZ7dNgHjdQypp4kSWLuWMJGE0zYkTW6IVvMCf/Za055pPmpiYx0s+NiBPH0X0NjCvHvPzhui960LghmtvL5oa5eXkEMJRC+SMd/ro15AH2Eb7ZqzFyK5EvkC/XjRVVPnmOlzg3ls+MzH7ZrxJl4NmAeFE/e3yMUu1Q6smEBljjWqeKExI=
+      app: wind4fun-web
+      on:
+        repo: dracomithril/wind4fun-web
+        tags: true
