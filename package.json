@@ -18,12 +18,16 @@
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0",
-    "typeface-roboto": "^0.0.54"
+    "typeface-roboto": "^0.0.54",
+    "express": "latest",
+    "serve-static": "latest",
+    "winston": "latest"
   },
   "scripts": {
     "lint": "eslint \"**/*.@(js|jsx)\"",
     "format": "yarn run lint -- --fix",
-    "start": "react-scripts start",
+    "start:dev": "react-scripts start",
+    "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
