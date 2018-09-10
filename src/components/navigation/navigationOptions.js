@@ -1,5 +1,5 @@
 import UserInfo from '../UserInfo';
-import Trainers from '../Trainers';
+import Trainers from '../trainers/Trainers';
 
 
 export default [

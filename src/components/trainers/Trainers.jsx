@@ -8,25 +8,20 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
+import CreateNewTrainer from './CreateNewTrainer';
 
 const styles = theme => ({
   header: {
     textAlign: 'center',
   },
+  root: {
+    paddingLeft: 50,
+    paddingRight: 50,
+  },
   tableRoot: {
     width: '100%',
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
-  },
-  createNew: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
   },
   table: {
     minWidth: 700,
@@ -34,31 +29,11 @@ const styles = theme => ({
 });
 
 const Trainers = ({ classes, trainers }) => (
-  <div>
+  <div className={classes.root}>
     <h3 className={classes.header}>
       Trainers
     </h3>
-    <Paper className={classes.createNew}>
-      Add new trainer
-      <TextField
-        id="firstName-input"
-        label="First name"
-        className={classes.textField}
-        margin="normal"
-      />
-      <TextField
-        id="surname-input"
-        label="Surname"
-        className={classes.textField}
-        margin="normal"
-      />
-      <TextField
-        id="nickname-input"
-        label="Nickname"
-        className={classes.textField}
-        margin="normal"
-      />
-    </Paper>
+    <CreateNewTrainer onCreate={(newTrainer) => { console.log(newTrainer); }} />
     <Paper className={classes.tableRoot}>
       <Table className={classes.table}>
         <TableHead>
@@ -67,13 +42,13 @@ const Trainers = ({ classes, trainers }) => (
               id
             </TableCell>
             <TableCell>
-first name
+              first name
             </TableCell>
             <TableCell>
-surname
+              surname
             </TableCell>
             <TableCell>
-login
+              login
             </TableCell>
           </TableRow>
         </TableHead>
@@ -108,6 +83,7 @@ Trainers.propTypes = {
 const mapStateToProps = state => ({
   trainers: state.data.trainers,
 });
+
 const VisibleTrainers = connect(mapStateToProps)(Trainers);
 
 export default withStyles(styles)(VisibleTrainers);

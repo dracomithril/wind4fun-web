@@ -19,7 +19,7 @@ const store = createStore({
     }
 });
 
-import Trainers from '../components/Trainers';
+import Trainers from '../components/trainers/Trainers';
 
 storiesOf('Story of Trainers', module)
     .addDecorator(story => <Provider store={store}>{story()}</Provider>)
