@@ -10,7 +10,6 @@ const store = createStore({
     {
       trainers:[
       {
-        id:1,
         login:'pkowalski',
         nickname:'kozak',
         firstName:'Piotr',

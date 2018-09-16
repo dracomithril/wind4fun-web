@@ -1,6 +1,7 @@
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import FormLabel from '@material-ui/core/FormLabel';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
@@ -12,24 +13,38 @@ const styles = theme => ({
     width: 200,
   },
   createNew: {
-    paddingLeft: 10,
+    display: 'flex',
+    paddingBottom: 10,
+    paddingTop: 10,
     width: '100%',
     marginTop: theme.spacing.unit * 3,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
   },
 
 });
+const defaultState = {
+  firstName: '',
+  surname: '',
+  nickname: '',
+};
 
 class CreateNewTrainer extends Component {
   state = {
-    firstName: null,
-    surname: null,
-    nickname: null,
+    ...defaultState,
   };
 
   handleCreate = () => {
     const { firstName, surname, nickname } = this.state;
     const { onCreate } = this.props;
-    onCreate({ firstName, surname, nickname });
+    onCreate({
+      firstName, surname, nickname, login: this.createLogin(firstName, surname),
+    });
+    this.clearState();
+  };
+
+  clearState = () => {
+    this.setState(defaultState);
   };
 
   handleChange = name => (event) => {
@@ -40,9 +55,15 @@ class CreateNewTrainer extends Component {
 
   validateTextField = str => (str != null ? str.length > 3 : false);
 
+  createLogin = (firstName, surname) => ((firstName[0] || '') + surname).toLowerCase() || '';
+
   render() {
-    const { classes } = this.props;
-    const { surname, nickname, firstName } = this.state;
+    const { classes, error, errorLogin } = this.props;
+    const {
+      surname,
+      nickname,
+      firstName,
+    } = this.state;
     const isValid = {
       firstName: this.validateTextField(firstName),
       surname: this.validateTextField(surname),
@@ -51,9 +72,17 @@ class CreateNewTrainer extends Component {
     const buttonEnabled = Object.values(isValid).every(Boolean);
     return (
       <Paper className={classes.createNew}>
-        <span>
+        <span style={{ width: '100%', textAlign: 'center' }}>
 Add new trainer
         </span>
+        {error && (
+        <FormLabel style={{
+          margin: 5, color: 'red', width: '100%', textAlign: 'center',
+        }}
+        >
+          {`Provided user login exists ${errorLogin}`}
+        </FormLabel>
+        )}
         <TextField
           error={!isValid.firstName}
           id="firstName-input"
@@ -84,6 +113,14 @@ Add new trainer
           onChange={this.handleChange('nickname')}
           required
         />
+        <TextField
+          id="login-input"
+          label="Login"
+          className={classes.textField}
+          margin="normal"
+          value={this.createLogin(firstName, surname)}
+          disabled
+        />
         <Button
           type="submit"
           variant="outlined"
@@ -101,9 +138,15 @@ Add new trainer
 CreateNewTrainer.propTypes = {
   classes: PropTypes.shape().isRequired,
   onCreate: PropTypes.func,
+  error: PropTypes.bool,
+  errorLogin: PropTypes.string,
 };
+
 CreateNewTrainer.defaultProps = {
-  onCreate: () => {},
+  onCreate: () => {
+  },
+  error: false,
+  errorLogin: '',
 };
 
 export default withStyles(styles)(CreateNewTrainer);
