@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Paper from '@material-ui/core/Paper/Paper';
-import connect from 'react-redux/es/connect/connect';
+import Paper from '@material-ui/core/Paper';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 
 const styles = theme => ({
