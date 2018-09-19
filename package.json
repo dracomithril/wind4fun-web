@@ -1,6 +1,6 @@
 {
   "name": "wind4fun-web",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "engines": {
     "node": "8.x",
     "yarn": "1.x"
@@ -29,7 +29,7 @@
     "start:dev": "react-scripts start",
     "start": "node server.js",
     "build": "react-scripts build",
-    "build:all":"yarn build && yarn build-storybook",
+    "build:all": "yarn build && yarn build-storybook",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
