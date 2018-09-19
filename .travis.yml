@@ -9,15 +9,16 @@ cache:
 stages:
 - test
 - name: deploy
+  if: tag IS present
+
 jobs:
   include:
   - stage: test
     script: yarn run lint
   - script: yarn test
-  - if: tag IS present
-    stage: deploy to production
-    script: yarn build
-  - script: yarn build-storybook
+  - stage: deploy
+    name: "Deploy to production"
+    script: yarn build:all
     deploy:
       app: wind4fun-web
       skip_cleanup: true
