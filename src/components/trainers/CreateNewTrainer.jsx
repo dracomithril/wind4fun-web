@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import FormLabel from '@material-ui/core/FormLabel';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import SaveIcon from '@material-ui/icons/SaveTwoTone';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -53,9 +54,16 @@ class CreateNewTrainer extends Component {
     });
   };
 
+  normalizeString = str => str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\u0142/g, 'l');
+
   validateTextField = str => (str != null ? str.length > 3 : false);
 
-  createLogin = (firstName, surname) => ((firstName[0] || '') + surname).toLowerCase() || '';
+  createLogin = (firstName, surname) => {
+    if (firstName && surname) {
+      return this.normalizeString(`${firstName}.${surname}`) || '';
+    }
+    return '';
+  };
 
   render() {
     const { classes, error, errorLogin } = this.props;
@@ -86,7 +94,7 @@ Add new trainer
         <TextField
           error={!isValid.firstName}
           id="firstName-input"
-          label="First name"
+          label="first name"
           className={classes.textField}
           margin="normal"
           onChange={this.handleChange('firstName')}
@@ -96,7 +104,7 @@ Add new trainer
         <TextField
           error={!isValid.surname}
           id="surname-input"
-          label="Surname"
+          label="surname"
           className={classes.textField}
           margin="normal"
           value={surname}
@@ -106,7 +114,7 @@ Add new trainer
         <TextField
           error={!isValid.nickname}
           id="nickname-input"
-          label="Nickname"
+          label="nickname"
           className={classes.textField}
           margin="normal"
           value={nickname}
@@ -115,20 +123,22 @@ Add new trainer
         />
         <TextField
           id="login-input"
-          label="Login"
+          label="login"
           className={classes.textField}
           margin="normal"
           value={this.createLogin(firstName, surname)}
           disabled
         />
         <Button
+          style={{ minWidth: 100 }}
           type="submit"
           variant="outlined"
           color="primary"
           disabled={!buttonEnabled}
           onClick={this.handleCreate}
         >
-          CREATE
+          <SaveIcon />
+          ADD
         </Button>
       </Paper>
     );

@@ -7,13 +7,19 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import Paper from '@material-ui/core/Paper';
 import CreateNewTrainer from './CreateNewTrainer';
-import { createNewTrainer } from '../../redux/actions';
+import { createNewTrainer, deleteTrainer } from '../../redux/actions';
 
 const styles = theme => ({
   header: {
     textAlign: 'center',
+  },
+  button: {
+    margin: theme.spacing.unit,
   },
   root: {
     paddingLeft: 50,
@@ -42,6 +48,11 @@ class Trainers extends Component {
     } else {
       this.setState({ loginError: [true, newTrainer.login] });
     }
+  };
+
+  handleDelete = login => () => {
+    const { onDelete } = this.props;
+    onDelete(login);
   };
 
   render() {
@@ -74,6 +85,7 @@ class Trainers extends Component {
                 <TableCell>
                   login
                 </TableCell>
+                <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
@@ -93,6 +105,14 @@ class Trainers extends Component {
                   </TableCell>
                   <TableCell>
                     {n.login}
+                  </TableCell>
+                  <TableCell>
+                    <Button aria-label="edit" disabled className={classes.button}>
+                      <EditIcon />
+                    </Button>
+                    <Button color="secondary" aria-label="delete" onClick={this.handleDelete(n.login)} className={classes.button}>
+                      <DeleteIcon />
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -114,6 +134,7 @@ Trainers.propTypes = {
     nickname: PropTypes.string,
   })).isRequired,
   onCreateNew: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -123,6 +144,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onCreateNew: (newTrainer) => {
     dispatch(createNewTrainer(newTrainer));
+  },
+  onDelete: (login) => {
+    dispatch(deleteTrainer(login));
   },
 });
 

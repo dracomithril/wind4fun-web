@@ -4,6 +4,7 @@ import {storiesOf} from '@storybook/react';
 import { Provider } from 'react-redux';
 // import {action} from '@storybook/addon-actions';
 import createStore from '../redux/store';
+import Trainers from '../components/trainers';
 
 const store = createStore({
   data:
@@ -18,7 +19,6 @@ const store = createStore({
     }
 });
 
-import Trainers from '../components/trainers/Trainers';
 
 storiesOf('Story of Trainers', module)
     .addDecorator(story => <Provider store={store}>{story()}</Provider>)

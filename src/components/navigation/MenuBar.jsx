@@ -11,6 +11,7 @@ import {
 import PropTypes from 'prop-types';
 import React from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
+import { withRouter } from 'react-router-dom';
 import navigationOptions from './navigationOptions';
 
 
@@ -42,8 +43,9 @@ class MenuBar extends React.Component {
   };
 
   handleSelect = path => () => {
+    const { history } = this.props;
     this.setState({ anchorEl: null });
-    window.location = path;
+    history.push(path);
   };
 
   handleAwayClick =() => {
@@ -103,6 +105,7 @@ MenuBar.propTypes = {
     classes: PropTypes.any,
     flex: PropTypes.any,
   }).isRequired,
+  history: PropTypes.shape().isRequired,
 };
 
-export default withStyles(styles)(MenuBar);
+export default withRouter(withStyles(styles)(MenuBar));

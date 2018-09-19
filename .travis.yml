@@ -17,6 +17,7 @@ jobs:
   - if: tag IS present
     stage: deploy to production
     script: yarn build
+  - script: yarn build-storybook
     deploy:
       app: wind4fun-web
       skip_cleanup: true
