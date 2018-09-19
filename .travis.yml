@@ -15,7 +15,9 @@ jobs:
   include:
   - stage: test
     script: yarn run lint
+    name: "linting"
   - script: yarn test
+    name: "testing"
   - stage: deploy
     name: "Deploy to production"
     script: yarn build:all
