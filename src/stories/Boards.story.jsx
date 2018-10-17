@@ -4,22 +4,17 @@ import {storiesOf} from '@storybook/react';
 import { Provider } from 'react-redux';
 // import {action} from '@storybook/addon-actions';
 import createStore from '../redux/store';
-import Trainers from '../components/trainers';
+import Boards from '../components/equipments/Boards';
 
 const store = createStore({
   data:
     {
-      trainers:[
-      {
-        login:'pkowalski',
-        nickname:'kozak',
-        firstName:'Piotr',
-        surname:'Kowalski'}
+      boards:[
       ]
     }
 });
 
 
-storiesOf('Story of Trainers', module)
+storiesOf('Story of Boards', module)
     .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-    .add('with text', () => <Trainers/>);
+    .add('with text', () => <Boards />);

@@ -1,23 +1,31 @@
 import { combineReducers } from 'redux';
-import { ADD_NEW_TRAINER, DELETE_TRAINER } from '../actions/action_types';
+import {
+  ADD_NEW_EMPLOYEE, DELETE_EMPLOYEE, DELETE_BOARD, ADD_NEW_BOARD,
+} from '../actions/action_types';
 
-const trainers = (store = [], action) => {
+const employees = (store = [], action) => {
   switch (action.type) {
-    case ADD_NEW_TRAINER: {
+    case ADD_NEW_EMPLOYEE: {
       return [...store, action.value];
     }
-    case DELETE_TRAINER: {
+    case DELETE_EMPLOYEE: {
       return store.filter(f => f.login !== action.value);
     }
     default:
       return store;
   }
 };
-const equipments = (store = [], action) => {
+const boards = (store = [], action) => {
   switch (action.type) {
+    case ADD_NEW_BOARD: {
+      return [...store, action.value];
+    }
+    case DELETE_BOARD: {
+      return store.filter(f => f.login !== action.value);
+    }
     default:
       return store;
   }
 };
 
-export default combineReducers({ trainers, equipments });
+export default combineReducers({ employees, boards });

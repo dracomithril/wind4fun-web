@@ -41,9 +41,7 @@ Equipment.propTypes = {
   classes: PropTypes.shape().isRequired,
 };
 
-const mapStateToProps = state => ({
-  equipments: state.data.equipments,
-});
+const mapStateToProps = () => ({});
 
 const VisibleEquipment = connect(mapStateToProps)(Equipment);
 

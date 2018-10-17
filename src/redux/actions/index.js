@@ -1,4 +1,11 @@
-import { ADD_NEW_TRAINER, DELETE_TRAINER } from './action_types';
+import {
+  ADD_NEW_EMPLOYEE,
+  DELETE_EMPLOYEE,
+  ADD_NEW_BOARD,
+  DELETE_BOARD,
+} from './action_types';
 
-export const createNewTrainer = trainer => ({ type: ADD_NEW_TRAINER, value: trainer });
-export const deleteTrainer = login => ({ type: DELETE_TRAINER, value: login });
+export const createNewEmployee = trainer => ({ type: ADD_NEW_EMPLOYEE, value: trainer });
+export const deleteEmployee = login => ({ type: DELETE_EMPLOYEE, value: login });
+export const deleteBoard = id => ({ type: DELETE_BOARD, value: id });
+export const createNewBoard = board => ({ type: ADD_NEW_BOARD, value: board });

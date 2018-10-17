@@ -9,12 +9,6 @@ const store = createStore({
   data:
     {
       equipments:[
-        {
-          login:'pkowalski',
-          nickname:'kozak',
-          firstName:'Piotr',
-          surname:'Kowalski'
-        }
       ]
     }
 });

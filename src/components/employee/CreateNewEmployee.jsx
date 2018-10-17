@@ -6,6 +6,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import SaveIcon from '@material-ui/icons/SaveTwoTone';
 import { withStyles } from '@material-ui/core/styles';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import { EmployeeTypeDef } from '../../typesDefinition';
 
 const styles = theme => ({
   textField: {
@@ -22,24 +27,49 @@ const styles = theme => ({
     flexWrap: 'wrap',
     justifyContent: 'center',
   },
+  formControl: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    minWidth: 120,
+  },
 
 });
-const defaultState = {
-  firstName: '',
-  surname: '',
-  nickname: '',
+
+const employeeTypes = {
+  trainer: 'trainer',
+  other: 'other',
 };
 
-class CreateNewTrainer extends Component {
-  state = {
-    ...defaultState,
-  };
+const defaultState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  employeeType: '',
+};
+
+class CreateNewEmployee extends Component {
+  constructor(props) {
+    super(props);
+    const { value } = props;
+    const isLoginEditable = !value.login;
+    this.state = {
+      ...value,
+      isLoginEditable,
+    };
+  }
 
   handleCreate = () => {
-    const { firstName, surname, nickname } = this.state;
+    const {
+      firstName, lastName, email, employeeType, isLoginEditable, login,
+    } = this.state;
     const { onCreate } = this.props;
+    const userLogin = isLoginEditable ? this.createLogin(firstName, lastName) : login;
     onCreate({
-      firstName, surname, nickname, login: this.createLogin(firstName, surname),
+      firstName,
+      lastName,
+      email,
+      employeeType,
+      login: userLogin,
     });
     this.clearState();
   };
@@ -58,6 +88,8 @@ class CreateNewTrainer extends Component {
 
   validateTextField = str => (str != null ? str.length > 3 : false);
 
+  validateEmail = email => /\S+@\S+\.\S+/.test(email);
+
   createLogin = (firstName, surname) => {
     if (firstName && surname) {
       return this.normalizeString(`${firstName}.${surname}`) || '';
@@ -66,22 +98,29 @@ class CreateNewTrainer extends Component {
   };
 
   render() {
-    const { classes, error, errorLogin } = this.props;
     const {
-      surname,
-      nickname,
+      classes, error, errorLogin,
+    } = this.props;
+    const {
+      lastName,
+      email,
       firstName,
+      employeeType,
+      isLoginEditable,
+      login,
     } = this.state;
     const isValid = {
       firstName: this.validateTextField(firstName),
-      surname: this.validateTextField(surname),
-      nickname: this.validateTextField(nickname),
+      lastName: this.validateTextField(lastName),
+      email: this.validateEmail(email),
     };
     const buttonEnabled = Object.values(isValid).every(Boolean);
+    const userLogin = isLoginEditable
+      ? this.createLogin(firstName, lastName) : login;
     return (
       <Paper className={classes.createNew}>
         <span style={{ width: '100%', textAlign: 'center' }}>
-Add new trainer
+Add new employee
         </span>
         {error && (
         <FormLabel style={{
@@ -94,7 +133,7 @@ Add new trainer
         <TextField
           error={!isValid.firstName}
           id="firstName-input"
-          label="first name"
+          label="firstName"
           className={classes.textField}
           margin="normal"
           onChange={this.handleChange('firstName')}
@@ -102,23 +141,24 @@ Add new trainer
           required
         />
         <TextField
-          error={!isValid.surname}
-          id="surname-input"
-          label="surname"
+          error={!isValid.lastName}
+          id="lastName-input"
+          label="lastName"
           className={classes.textField}
           margin="normal"
-          value={surname}
-          onChange={this.handleChange('surname')}
+          value={lastName}
+          onChange={this.handleChange('lastName')}
           required
         />
         <TextField
-          error={!isValid.nickname}
-          id="nickname-input"
-          label="nickname"
+          error={!isValid.email}
+          id="email-input"
+          label="email"
           className={classes.textField}
           margin="normal"
-          value={nickname}
-          onChange={this.handleChange('nickname')}
+          value={email}
+          onChange={this.handleChange('email')}
+          type="email"
           required
         />
         <TextField
@@ -126,9 +166,34 @@ Add new trainer
           label="login"
           className={classes.textField}
           margin="normal"
-          value={this.createLogin(firstName, surname)}
+          value={userLogin}
           disabled
         />
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="age-simple">
+trainer type
+          </InputLabel>
+          <Select
+            value={employeeType}
+            onChange={this.handleChange('employeeType')}
+            inputProps={{
+              name: 'employeeType',
+              id: 'employeeType-select',
+            }}
+          >
+            <MenuItem value="">
+              <em>
+None
+              </em>
+            </MenuItem>
+            <MenuItem value={employeeTypes.trainer}>
+trainer
+            </MenuItem>
+            <MenuItem value={employeeTypes.other}>
+other
+            </MenuItem>
+          </Select>
+        </FormControl>
         <Button
           style={{ minWidth: 100 }}
           type="submit"
@@ -145,18 +210,19 @@ Add new trainer
   }
 }
 
-CreateNewTrainer.propTypes = {
+CreateNewEmployee.propTypes = {
   classes: PropTypes.shape().isRequired,
+  value: PropTypes.shape(EmployeeTypeDef),
   onCreate: PropTypes.func,
   error: PropTypes.bool,
   errorLogin: PropTypes.string,
 };
 
-CreateNewTrainer.defaultProps = {
-  onCreate: () => {
-  },
+CreateNewEmployee.defaultProps = {
+  onCreate: () => {},
+  value: defaultState,
   error: false,
   errorLogin: '',
 };
 
-export default withStyles(styles)(CreateNewTrainer);
+export default withStyles(styles)(CreateNewEmployee);
