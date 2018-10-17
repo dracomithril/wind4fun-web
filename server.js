@@ -9,6 +9,10 @@ const logger = winston.createLogger({
   transports: [new winston.transports.Console()],
 });
 const app = express();
+app.get('/app/version', (req, res) => {
+  const version = process.env.npm_package_version;
+  res.send(version);
+});
 app.use('/storybook', serveStatic(join(__dirname, 'storybook-static')));
 app.use(serveStatic(join(__dirname, 'build')));
 
