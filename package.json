@@ -5,6 +5,7 @@
     "node": "8.x",
     "yarn": "1.x"
   },
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.0.2",
