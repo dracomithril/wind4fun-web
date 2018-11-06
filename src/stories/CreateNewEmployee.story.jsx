@@ -1,18 +1,18 @@
 import React from 'react';
 
-import {storiesOf} from '@storybook/react';
-import {action} from '@storybook/addon-actions';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 
 import CreateNewEmployee from '../components/employee/CreateNewEmployee';
 
 const employee = {
-  login:'pkowalski',
-  firstName:'Piotr',
-  lastName:'Kowalski',
-  email:'kozak@gmail.com',
-  employeeType: 'trainer'
+  login: 'pkowalski',
+  firstName: 'Piotr',
+  lastName: 'Kowalski',
+  email: 'kozak@gmail.com',
+  employeeType: 'trainer',
 };
 
 storiesOf('Story of CreateNewEmployee', module)
-    .add('with text', () => <CreateNewEmployee onCreate={action('onCreateEmployee')} />)
-    .add('with default value', () => <CreateNewEmployee value={employee} onCreate={action('onCreateEmployee')} />);
+  .add('with text', () => <CreateNewEmployee onCreate={action('onCreateEmployee')} />)
+  .add('with default value', () => <CreateNewEmployee value={employee} onCreate={action('onCreateEmployee')} />);

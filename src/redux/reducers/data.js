@@ -21,7 +21,7 @@ const boards = (store = [], action) => {
       return [...store, action.value];
     }
     case DELETE_BOARD: {
-      return store.filter(f => f.login !== action.value);
+      return store.filter(f => f.id !== action.value);
     }
     default:
       return store;

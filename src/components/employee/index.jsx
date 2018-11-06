@@ -1,96 +1,51 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Table from '@material-ui/core/Table';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import CreateNewEmployee from './CreateNewEmployee';
 import { createNewEmployee, deleteEmployee } from '../../redux/actions';
 import { EmployeeTypeDef } from '../../typesDefinition';
-import EditDeleteTableRow from '../table/EditDeleteTableRow';
-import { createHeaderCell, createValueCell } from '../table/cellUtils';
+import DataTable from '../table';
 
-const styles = theme => ({
+const styles = () => ({
   header: {
     textAlign: 'center',
-  },
-  button: {
-    margin: theme.spacing.unit,
   },
   root: {
     paddingLeft: 50,
     paddingRight: 50,
   },
-  tableRoot: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 700,
-  },
 });
 
 class Employees extends Component {
-  state = {
-    loginError: [false, ''],
-  };
-
-  handleCreateNew = (newEmployee) => {
-    const { employees, onCreateNew } = this.props;
-    const condition = employees.filter(f => f.login === newEmployee.login).length === 0;
-    if (condition) {
-      onCreateNew(newEmployee);
-    } else {
-      this.setState({ loginError: [true, newEmployee.login] });
-    }
-  };
-
-  handleDelete = login => () => {
-    const { onDelete } = this.props;
-    onDelete(login);
-  };
+  validateLogin =employees => login => employees.filter(f => f.login === login).length === 0;
 
   render() {
-    const { classes, employees } = this.props;
-    const { loginError } = this.state;
-    const fields = ['firstName', 'lastName', 'email', 'login', 'employeeType'];
+    const {
+      classes, employees, onDelete, onCreateNew,
+    } = this.props;
+    const fields = [
+      { name: 'firstName', displayName: 'first name' },
+      { name: 'lastName', displayName: 'last name' },
+      { name: 'email' },
+      { name: 'login' },
+      { name: 'employeeType', displayName: 'employee type' },
+    ];
+
     return (
       <div className={classes.root}>
         <h3 className={classes.header}>
           Employees
         </h3>
         <CreateNewEmployee
-          onCreate={this.handleCreateNew}
-          error={loginError[0]}
-          errorLogin={loginError[1]}
+          onCreate={onCreateNew}
+          validate={this.validateLogin(employees)}
         />
-        <Paper className={classes.tableRoot}>
-          <Table className={classes.table}>
-            <TableHead>
-              <TableRow>
-                <TableCell />
-                {fields.map(createHeaderCell)}
-                <TableCell />
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {employees.map((employee, index) => (
-                <TableRow key={employee.login}>
-                  <TableCell component="th" scope="row">
-                    {index + 1}
-                  </TableCell>
-                  {fields.map(createValueCell(employee, index))}
-                  <EditDeleteTableRow onDelete={this.handleDelete(employee.login)} />
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Paper>
+        <DataTable
+          fields={fields}
+          data={employees}
+          onDelete={onDelete}
+        />
       </div>
     );
   }
@@ -111,8 +66,8 @@ const mapDispatchToProps = dispatch => ({
   onCreateNew: (newTrainer) => {
     dispatch(createNewEmployee(newTrainer));
   },
-  onDelete: (login) => {
-    dispatch(deleteEmployee(login));
+  onDelete: (employee) => {
+    dispatch(deleteEmployee(employee.login));
   },
 });
 

@@ -8,11 +8,13 @@ import createStore from '../redux/store';
 const store = createStore({
   data:
     {
-      equipments:[
-      ]
-    }
+    },
 });
 
 storiesOf('Equipment', module)
-  .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-  .add('Todo[VR]', () => <Equipment/>);
+  .addDecorator(story => (
+    <Provider store={store}>
+      {story()}
+    </Provider>
+  ))
+  .add('Todo[VR]', () => <Equipment />);

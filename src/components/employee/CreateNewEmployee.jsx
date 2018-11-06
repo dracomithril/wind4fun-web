@@ -45,6 +45,7 @@ const defaultState = {
   lastName: '',
   email: '',
   employeeType: '',
+  error: '',
 };
 
 class CreateNewEmployee extends Component {
@@ -53,6 +54,7 @@ class CreateNewEmployee extends Component {
     const { value } = props;
     const isLoginEditable = !value.login;
     this.state = {
+      error: '',
       ...value,
       isLoginEditable,
     };
@@ -62,16 +64,20 @@ class CreateNewEmployee extends Component {
     const {
       firstName, lastName, email, employeeType, isLoginEditable, login,
     } = this.state;
-    const { onCreate } = this.props;
+    const { onCreate, validate } = this.props;
     const userLogin = isLoginEditable ? this.createLogin(firstName, lastName) : login;
-    onCreate({
-      firstName,
-      lastName,
-      email,
-      employeeType,
-      login: userLogin,
-    });
-    this.clearState();
+    if (validate(userLogin)) {
+      onCreate({
+        firstName,
+        lastName,
+        email,
+        employeeType,
+        login: userLogin,
+      });
+      this.clearState();
+    } else {
+      this.setState({ error: userLogin });
+    }
   };
 
   clearState = () => {
@@ -86,7 +92,7 @@ class CreateNewEmployee extends Component {
 
   normalizeString = str => str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\u0142/g, 'l');
 
-  validateTextField = str => (str != null ? str.length > 3 : false);
+  validateTextField = (str, length = 3) => (str != null ? str.length >= length : false);
 
   validateEmail = email => /\S+@\S+\.\S+/.test(email);
 
@@ -99,7 +105,7 @@ class CreateNewEmployee extends Component {
 
   render() {
     const {
-      classes, error, errorLogin,
+      classes,
     } = this.props;
     const {
       lastName,
@@ -108,6 +114,7 @@ class CreateNewEmployee extends Component {
       employeeType,
       isLoginEditable,
       login,
+      error,
     } = this.state;
     const isValid = {
       firstName: this.validateTextField(firstName),
@@ -122,12 +129,12 @@ class CreateNewEmployee extends Component {
         <span style={{ width: '100%', textAlign: 'center' }}>
 Add new employee
         </span>
-        {error && (
+        {error !== '' && (
         <FormLabel style={{
           margin: 5, color: 'red', width: '100%', textAlign: 'center',
         }}
         >
-          {`Provided user login exists ${errorLogin}`}
+          {`Provided user login exists ${userLogin}`}
         </FormLabel>
         )}
         <TextField
@@ -170,8 +177,8 @@ Add new employee
           disabled
         />
         <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="age-simple">
-trainer type
+          <InputLabel>
+employee type
           </InputLabel>
           <Select
             value={employeeType}
@@ -203,7 +210,7 @@ other
           onClick={this.handleCreate}
         >
           <SaveIcon />
-          ADD
+          {isLoginEditable ? 'ADD' : 'EDIT'}
         </Button>
       </Paper>
     );
@@ -214,15 +221,13 @@ CreateNewEmployee.propTypes = {
   classes: PropTypes.shape().isRequired,
   value: PropTypes.shape(EmployeeTypeDef),
   onCreate: PropTypes.func,
-  error: PropTypes.bool,
-  errorLogin: PropTypes.string,
+  validate: PropTypes.func,
 };
 
 CreateNewEmployee.defaultProps = {
   onCreate: () => {},
+  validate: () => true,
   value: defaultState,
-  error: false,
-  errorLogin: '',
 };
 
 export default withStyles(styles)(CreateNewEmployee);
