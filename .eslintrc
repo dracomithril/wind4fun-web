@@ -1,7 +1,8 @@
 {
-  "extends": ["airbnb"],
+  "extends": [
+    "airbnb"
+  ],
   "parser": "babel-eslint",
-  "plugins": ["json", "import"],
   "env": {
     "browser": true,
     "node": true,
@@ -9,13 +10,26 @@
     "jest": true
   },
   "rules": {
-    "no-console": ["warn", {
-      "allow": ["info", "warn", "error", "time", "timeEnd"]
-    }]
-  },
-  "settings": {
-    "import/resolver": {
-      "babel-module": {}
-    }
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "info",
+          "warn",
+          "error",
+          "time",
+          "timeEnd"
+        ]
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          ".storybook/**",
+          "src/stories/**"
+        ]
+      }
+    ]
   }
 }
