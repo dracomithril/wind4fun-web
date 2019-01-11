@@ -14,6 +14,6 @@ const employee = {
   service: false,
 };
 
-storiesOf('Story of CreateNewBoard', module)
+storiesOf('Components/CreateNewBoard', module)
   .add('with text', () => <CreateNewBoard onCreate={action('onCreateBoard')} />)
   .add('with default value', () => <CreateNewBoard value={employee} onCreate={action('onCreateBoard')} />);

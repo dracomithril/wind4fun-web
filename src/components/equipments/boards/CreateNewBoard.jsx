@@ -143,7 +143,8 @@ Add new employee
               checked={highTech}
               onChange={this.handleChangeSwitch}
               value="highTech"
-            />)}
+            />
+)}
           label="highTech"
         />
         <FormControlLabel
@@ -152,7 +153,8 @@ Add new employee
               checked={service}
               onChange={this.handleChangeSwitch}
               value="service"
-            />)}
+            />
+)}
           label="service"
         />
         <Button

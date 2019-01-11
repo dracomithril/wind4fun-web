@@ -11,7 +11,7 @@ const store = createStore({
     },
 });
 
-storiesOf('Equipment', module)
+storiesOf('Components/Equipment', module)
   .addDecorator(story => (
     <Provider store={store}>
       {story()}

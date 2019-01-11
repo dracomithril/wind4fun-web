@@ -13,6 +13,6 @@ const employee = {
   employeeType: 'trainer',
 };
 
-storiesOf('Story of CreateNewEmployee', module)
+storiesOf('Components/CreateNewEmployee', module)
   .add('with text', () => <CreateNewEmployee onCreate={action('onCreateEmployee')} />)
   .add('with default value', () => <CreateNewEmployee value={employee} onCreate={action('onCreateEmployee')} />);

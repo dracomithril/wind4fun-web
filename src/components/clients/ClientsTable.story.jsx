@@ -24,7 +24,7 @@ const state = {
 };
 const store = createStore(state);
 
-storiesOf('ClientsTable', module)
+storiesOf('Components/ClientsTable', module)
   .addDecorator(story => (
     <Provider store={store}>
       {story()}

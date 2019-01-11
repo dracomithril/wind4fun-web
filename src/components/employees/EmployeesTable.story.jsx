@@ -22,7 +22,7 @@ const store = createStore({
 });
 
 
-storiesOf('Story of Employee', module)
+storiesOf('Components/Employee', module)
   .addDecorator(story => (
     <Provider store={store}>
       {story()}

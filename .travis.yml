@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- 8.11.3
+- 10
 before_install:
 - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.9.2
 - export PATH="$HOME/.yarn/bin:$PATH"
@@ -8,9 +8,10 @@ cache:
   yarn: true
 stages:
 - test
-- name: deploy
+- name: deploy:prod
   if: tag IS present
-
+- name: deploy:storybook
+  if: tag IS present
 jobs:
   include:
   - stage: test
@@ -18,7 +19,7 @@ jobs:
     name: "linting"
   - script: yarn test
     name: "testing"
-  - stage: deploy
+  - stage: deploy:prod
     name: "Deploy to production"
     script: yarn build:prod
     deploy:
@@ -30,3 +31,16 @@ jobs:
       on:
         repo: dracomithril/wind4fun-web
         tags: true
+  - stage: deploy:storybook
+    name: "Deploy storybook to github pages"
+    script: yarn build:storybook
+    deploy:
+      provider: pages
+      skip-cleanup: true
+      local-dir: './storybook-static'
+      github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+      keep-history: true
+      on:
+        repo: dracomithril/wind4fun-web
+        tags: true
+        branch: master
