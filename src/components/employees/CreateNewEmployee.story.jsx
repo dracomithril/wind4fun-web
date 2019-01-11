@@ -3,7 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import CreateNewEmployee from '../components/employee/CreateNewEmployee';
+import CreateNewEmployee from './CreateNewEmployee';
 
 const employee = {
   login: 'pkowalski',

@@ -19,18 +19,20 @@ HeaderCell.defaultProps = {
 
 
 export const createValueCell = (obj, index) => {
-  const ValueCell = ({ name, type }) => (
+  const ValueCell = ({ name, type, renderer }) => (
     <TableCell key={`${name}-${index}-valueCell`} numeric={type === 'numeric'}>
-      {obj[name].toString()}
+      {renderer ? renderer(obj[name]) : obj[name].toString()}
     </TableCell>
   );
   ValueCell.propTypes = {
     name: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(['numeric', 'boolean', 'string']),
+    type: PropTypes.oneOf(['numeric', 'boolean', 'string', 'array']),
+    renderer: PropTypes.func,
   };
 
   ValueCell.defaultProps = {
     type: 'string',
+    renderer: null,
   };
 
   return ValueCell;

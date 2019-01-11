@@ -27,7 +27,7 @@
       {
         "devDependencies": [
           ".storybook/**",
-          "src/stories/**"
+          "src/**/*.story.@(js|jsx)"
         ]
       }
     ]

@@ -3,8 +3,8 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Provider } from 'react-redux';
 // import {action} from '@storybook/addon-actions';
-import createStore from '../redux/store';
-import Employee from '../components/employee';
+import createStore from '../../redux/store';
+import EmployeesTable from './EmployeesTable';
 
 const store = createStore({
   data:
@@ -28,4 +28,4 @@ storiesOf('Story of Employee', module)
       {story()}
     </Provider>
   ))
-  .add('with text', () => <Employee />);
+  .add('with text', () => <EmployeesTable />);
