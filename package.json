@@ -1,6 +1,6 @@
 {
   "name": "wind4fun-web",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "engines": {
     "node": "10.x",
     "yarn": "1.x"
