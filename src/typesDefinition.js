@@ -14,5 +14,5 @@ export const EmployeeTypeDef = {
   firstName: PropTypes.string,
   lastName: PropTypes.string,
   email: PropTypes.string,
-  employeeType: PropTypes.oneOf(['trainer', 'other']),
+  employeeType: PropTypes.oneOf(['', 'trainer', 'other']),
 };

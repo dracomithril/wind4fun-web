@@ -6,32 +6,33 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = () => ({
   button: {
-    margin: theme.spacing.unit,
   },
 });
 
 
 const EditDeleteTableRow = ({ classes, onDelete, onEdit }) => (
   <TableCell>
-    <Button
-      aria-label="edit"
-      disabled={onEdit.name === 'defaultFun'}
-      className={classes.button}
-      onClick={onEdit}
-    >
-      <EditIcon />
-    </Button>
-    <Button
-      disabled={onDelete.name === 'defaultFun'}
-      color="secondary"
-      aria-label="delete"
-      onClick={onDelete}
-      className={classes.button}
-    >
-      <DeleteIcon />
-    </Button>
+    <div style={{ display: 'flex' }}>
+      <Button
+        aria-label="edit"
+        disabled={onEdit.name === 'defaultFun'}
+        className={classes.button}
+        onClick={onEdit}
+      >
+        <EditIcon />
+      </Button>
+      <Button
+        disabled={onDelete.name === 'defaultFun'}
+        color="secondary"
+        aria-label="delete"
+        onClick={onDelete}
+        className={classes.button}
+      >
+        <DeleteIcon />
+      </Button>
+    </div>
   </TableCell>
 );
 

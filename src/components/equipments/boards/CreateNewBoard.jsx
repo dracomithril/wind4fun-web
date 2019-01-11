@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import SaveIcon from '@material-ui/icons/SaveTwoTone';
 import { withStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel/FormControlLabel';
-import { BoardTypeDef } from '../../typesDefinition';
+import { BoardTypeDef } from '../../../typesDefinition';
 
 const styles = theme => ({
   textField: {
@@ -143,7 +143,8 @@ Add new employee
               checked={highTech}
               onChange={this.handleChangeSwitch}
               value="highTech"
-            />)}
+            />
+)}
           label="highTech"
         />
         <FormControlLabel
@@ -152,7 +153,8 @@ Add new employee
               checked={service}
               onChange={this.handleChangeSwitch}
               value="service"
-            />)}
+            />
+)}
           label="service"
         />
         <Button

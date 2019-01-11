@@ -32,7 +32,9 @@ function Equipment(props) {
       <h3 className={classes.header}>
         Equipment
       </h3>
-      <Paper className={classes.tableRoot} />
+      <Paper className={classes.tableRoot}>
+        Boards
+      </Paper>
     </div>
   );
 }
