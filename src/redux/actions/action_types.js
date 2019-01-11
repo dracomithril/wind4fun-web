@@ -2,4 +2,6 @@ export const ADD_NEW_EMPLOYEE = 'ADD_NEW_EMPLOYEE';
 export const DELETE_EMPLOYEE = 'DELETE_EMPLOYEE';
 export const ADD_NEW_BOARD = 'ADD_NEW_BOARD';
 export const DELETE_BOARD = 'DELETE_BOARD';
+export const ADD_NEW_CLIENT = 'ADD_NEW_CLIENT';
+export const DELETE_CLIENT = 'DELETE_CLIENT';
 export const LOGIN_USER = 'LOGIN_USER';

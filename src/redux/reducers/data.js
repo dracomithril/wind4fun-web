@@ -1,6 +1,11 @@
 import { combineReducers } from 'redux';
 import {
-  ADD_NEW_EMPLOYEE, DELETE_EMPLOYEE, DELETE_BOARD, ADD_NEW_BOARD,
+  ADD_NEW_EMPLOYEE,
+  DELETE_EMPLOYEE,
+  DELETE_BOARD,
+  ADD_NEW_BOARD,
+  ADD_NEW_CLIENT,
+  DELETE_CLIENT,
 } from '../actions/action_types';
 
 const employees = (store = [], action) => {
@@ -28,4 +33,17 @@ const boards = (store = [], action) => {
   }
 };
 
-export default combineReducers({ employees, boards });
+const clients = (store = [], action) => {
+  switch (action.type) {
+    case ADD_NEW_CLIENT: {
+      return [...store, action.value];
+    }
+    case DELETE_CLIENT: {
+      return store.filter(f => f.login !== action.value);
+    }
+    default:
+      return store;
+  }
+};
+
+export default combineReducers({ employees, boards, clients });

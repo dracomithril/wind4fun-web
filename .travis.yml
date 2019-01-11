@@ -20,7 +20,7 @@ jobs:
     name: "testing"
   - stage: deploy
     name: "Deploy to production"
-    script: yarn build:all
+    script: yarn build:prod
     deploy:
       app: wind4fun-web
       skip_cleanup: true
