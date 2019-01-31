@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
 
 
-const UserInfo = ({ user }) => (
+export const UserInfo = ({ user }) => (
   <div>
     <span>
       {user}
@@ -21,4 +20,5 @@ UserInfo.defaultProps = {
 
 const mapStateToProps = state => ({ user: state.user });
 
-export default connect(mapStateToProps)(UserInfo);
+const connectedUserInfo = connect(mapStateToProps)(UserInfo);
+export default connectedUserInfo;

@@ -2,16 +2,13 @@ import React from 'react';
 import {
   Route,
   Switch,
-  StaticRouter,
   BrowserRouter as Router,
 } from 'react-router-dom';
 import MenuBar from './MenuBar';
 import navigationOptions from './navigationOptions';
 
 const Navigation = () => (
-  <div>
-    <StaticRouter location="/storybook" />
-    <StaticRouter location="/app/version" />
+  <React.Fragment>
     <Router>
       <div>
         <MenuBar />
@@ -27,7 +24,7 @@ const Navigation = () => (
         </Switch>
       </div>
     </Router>
-  </div>
+  </React.Fragment>
 );
 
 export default Navigation;

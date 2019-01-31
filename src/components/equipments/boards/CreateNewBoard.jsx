@@ -180,8 +180,7 @@ CreateNewBoard.propTypes = {
 };
 
 CreateNewBoard.defaultProps = {
-  onCreate: () => {
-  },
+  onCreate: () => {},
   value: defaultState,
 };
 

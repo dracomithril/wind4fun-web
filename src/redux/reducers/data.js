@@ -6,6 +6,8 @@ import {
   ADD_NEW_BOARD,
   ADD_NEW_CLIENT,
   DELETE_CLIENT,
+  ADD_NEW_EVENT,
+  DELETE_EVENT,
 } from '../actions/action_types';
 
 const employees = (store = [], action) => {
@@ -20,6 +22,7 @@ const employees = (store = [], action) => {
       return store;
   }
 };
+
 const boards = (store = [], action) => {
   switch (action.type) {
     case ADD_NEW_BOARD: {
@@ -46,4 +49,19 @@ const clients = (store = [], action) => {
   }
 };
 
-export default combineReducers({ employees, boards, clients });
+const events = (store = [], action) => {
+  switch (action.type) {
+    case ADD_NEW_EVENT: {
+      return [...store, action.value];
+    }
+    case DELETE_EVENT: {
+      return store.filter(f => f.id !== action.value);
+    }
+    default:
+      return store;
+  }
+};
+
+export default combineReducers({
+  employees, boards, clients, events,
+});

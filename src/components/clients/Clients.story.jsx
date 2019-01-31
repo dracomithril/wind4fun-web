@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 // import { action } from '@storybook/addon-actions';
 import { Provider } from 'react-redux';
-import ClientsTable from './ClientsTable';
+import ClientsTable from './Clients';
 import createStore from '../../redux/store';
 
 const state = {

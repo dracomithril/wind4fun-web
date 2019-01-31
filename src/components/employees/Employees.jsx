@@ -16,9 +16,10 @@ const styles = () => ({
     paddingRight: 50,
   },
 });
+
 const validateLogin = employees => login => employees.filter(f => f.login === login).length === 0;
 
-function EmployeesTable(props) {
+function Employees(props) {
   const {
     classes, employees, onDelete, onCreateNew,
   } = props;
@@ -37,7 +38,7 @@ function EmployeesTable(props) {
       </h3>
       <CreateNewEmployee
         onCreate={onCreateNew}
-        validate={validateLogin(employees)}
+        validateLogin={validateLogin(employees)}
       />
       <DataTable
         fields={fields}
@@ -48,11 +49,17 @@ function EmployeesTable(props) {
   );
 }
 
-EmployeesTable.propTypes = {
+Employees.propTypes = {
   classes: PropTypes.shape().isRequired,
-  employees: PropTypes.arrayOf(PropTypes.shape(EmployeeTypeDef)).isRequired,
-  onCreateNew: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  employees: PropTypes.arrayOf(PropTypes.shape(EmployeeTypeDef)),
+  onCreateNew: PropTypes.func,
+  onDelete: PropTypes.func,
+};
+
+Employees.defaultProps = {
+  employees: [],
+  onCreateNew: () => {},
+  onDelete: () => {},
 };
 
 const mapStateToProps = state => ({
@@ -68,6 +75,8 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-const VisibleTrainers = connect(mapStateToProps, mapDispatchToProps)(EmployeesTable);
+const styledEmployeesTable = withStyles(styles)(Employees);
+const connectedEmployeesTable = connect(mapStateToProps, mapDispatchToProps)(styledEmployeesTable);
 
-export default withStyles(styles)(VisibleTrainers);
+export { styledEmployeesTable as EmployeesTable };
+export default connectedEmployeesTable;

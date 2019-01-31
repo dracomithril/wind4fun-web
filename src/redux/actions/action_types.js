@@ -4,4 +4,6 @@ export const ADD_NEW_BOARD = 'ADD_NEW_BOARD';
 export const DELETE_BOARD = 'DELETE_BOARD';
 export const ADD_NEW_CLIENT = 'ADD_NEW_CLIENT';
 export const DELETE_CLIENT = 'DELETE_CLIENT';
+export const ADD_NEW_EVENT = 'ADD_NEW_EVENT';
+export const DELETE_EVENT = 'DELETE_EVENT';
 export const LOGIN_USER = 'LOGIN_USER';

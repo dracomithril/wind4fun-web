@@ -45,11 +45,16 @@ const Boards = (props) => {
 
 Boards.propTypes = {
   classes: PropTypes.shape().isRequired,
-  boards: PropTypes.arrayOf(PropTypes.shape(BoardTypeDef)).isRequired,
-  onCreateNew: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  boards: PropTypes.arrayOf(PropTypes.shape(BoardTypeDef)),
+  onCreateNew: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
+Boards.defaultProps = {
+  boards: [],
+  onCreateNew: () => {},
+  onDelete: () => {},
+};
 
 function mapStateToProps(state) {
   const { data } = state;
@@ -67,8 +72,11 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-
-export default withStyles(styles)(connect(
+const styledBoardsComponent = withStyles(styles)(Boards);
+const connectedBoards = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Boards));
+)(styledBoardsComponent);
+
+export { styledBoardsComponent as BoardsTable };
+export default connectedBoards;

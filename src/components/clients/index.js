@@ -1,3 +1,3 @@
-import ClientsTable from './ClientsTable';
+import ClientsTable from './Clients';
 
 export default ClientsTable;

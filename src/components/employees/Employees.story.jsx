@@ -2,9 +2,8 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 import { Provider } from 'react-redux';
-// import {action} from '@storybook/addon-actions';
 import createStore from '../../redux/store';
-import EmployeesTable from './EmployeesTable';
+import EmployeesTable from './Employees';
 
 const store = createStore({
   data:

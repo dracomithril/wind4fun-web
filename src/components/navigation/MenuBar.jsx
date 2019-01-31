@@ -15,7 +15,7 @@ import { withRouter } from 'react-router-dom';
 import navigationOptions from './navigationOptions';
 
 
-export const styles = {
+const styles = {
   root: {
     flexGrow: 1,
   },
@@ -33,7 +33,7 @@ export const styles = {
 
 const ITEM_HEIGHT = 48;
 
-class MenuBar extends React.Component {
+export class MenuBar extends React.Component {
   state = {
     anchorEl: null,
   };
@@ -55,6 +55,11 @@ class MenuBar extends React.Component {
   render() {
     const { anchorEl } = this.state;
     const { classes } = this.props;
+    const createMenuItem = ({ name, path }) => (
+      <MenuItem key={name} onClick={this.handleSelect(path)}>
+        {name}
+      </MenuItem>
+    );
     return (
       <div className={classes.root}>
         <ClickAwayListener onClickAway={this.handleAwayClick}>
@@ -81,11 +86,7 @@ class MenuBar extends React.Component {
                   },
                 }}
               >
-                {navigationOptions.map(({ name, path }) => (
-                  <MenuItem key={name} onClick={this.handleSelect(path)}>
-                    {name}
-                  </MenuItem>
-                ))}
+                {navigationOptions.map(createMenuItem)}
               </Menu>
               <Typography variant="title" color="inherit" className={classes.flex}>
               Wind4Fun

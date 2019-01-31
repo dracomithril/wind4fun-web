@@ -45,7 +45,7 @@ const fields = [
     ),
   },
 ];
-function ClientsTable(props) {
+function Clients(props) {
   const {
     classes, clients, onDelete,
   } = props;
@@ -63,12 +63,16 @@ function ClientsTable(props) {
   );
 }
 
-ClientsTable.propTypes = {
+Clients.propTypes = {
   classes: PropTypes.shape().isRequired,
-  clients: PropTypes.arrayOf(PropTypes.shape(EmployeeTypeDef)).isRequired,
-  onDelete: PropTypes.func.isRequired,
+  clients: PropTypes.arrayOf(PropTypes.shape(EmployeeTypeDef)),
+  onDelete: PropTypes.func,
 };
 
+Clients.defaultProps = {
+  clients: [],
+  onDelete: () => {},
+};
 
 const mapStateToProps = state => ({
   clients: state.data.clients,
@@ -82,6 +86,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(deleteEmployee(employee.login));
   },
 });
-const VisibleClients = connect(mapStateToProps, mapDispatchToProps)(ClientsTable);
 
-export default withStyles(styles)(VisibleClients);
+const styledComponent = withStyles(styles)(Clients);
+const VisibleClients = connect(mapStateToProps, mapDispatchToProps)(styledComponent);
+
+export { styledComponent as ClientsTable };
+export default VisibleClients;

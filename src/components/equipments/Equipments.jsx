@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
-import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 
 const styles = theme => ({
@@ -43,8 +42,4 @@ Equipment.propTypes = {
   classes: PropTypes.shape().isRequired,
 };
 
-const mapStateToProps = () => ({});
-
-const VisibleEquipment = connect(mapStateToProps)(Equipment);
-
-export default withStyles(styles)(VisibleEquipment);
+export default withStyles(styles)(Equipment);

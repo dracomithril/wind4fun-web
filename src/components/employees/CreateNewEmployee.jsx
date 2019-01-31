@@ -48,7 +48,7 @@ const defaultState = {
   error: '',
 };
 
-class CreateNewEmployee extends Component {
+export class CreateNewEmployee extends Component {
   constructor(props) {
     super(props);
     const { value } = props;
@@ -64,9 +64,9 @@ class CreateNewEmployee extends Component {
     const {
       firstName, lastName, email, employeeType, isLoginEditable, login,
     } = this.state;
-    const { onCreate, validate } = this.props;
+    const { onCreate, validateLogin } = this.props;
     const userLogin = isLoginEditable ? this.createLogin(firstName, lastName) : login;
-    if (validate(userLogin)) {
+    if (validateLogin(userLogin)) {
       onCreate({
         firstName,
         lastName,
@@ -204,6 +204,7 @@ other
         <Button
           style={{ minWidth: 100 }}
           type="submit"
+          id="submitEmployee"
           variant="outlined"
           color="primary"
           disabled={!buttonEnabled}
@@ -221,12 +222,12 @@ CreateNewEmployee.propTypes = {
   classes: PropTypes.shape().isRequired,
   value: PropTypes.shape(EmployeeTypeDef),
   onCreate: PropTypes.func,
-  validate: PropTypes.func,
+  validateLogin: PropTypes.func,
 };
 
 CreateNewEmployee.defaultProps = {
   onCreate: () => {},
-  validate: () => true,
+  validateLogin: () => true,
   value: defaultState,
 };
 
